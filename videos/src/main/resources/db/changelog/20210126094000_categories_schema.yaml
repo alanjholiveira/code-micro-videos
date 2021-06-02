@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210126094000_categories
+      author: Alan Oliveira
+      dbms: mysql
+      changes:
+        - createTable:
+            tableName: tb_categories
+            columns:
+              - column:
+                  name: id_category
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: is_active
+                  type: boolean
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValue: "NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_at
+                  type: timestamp
+                  defaultValue: "NOW() ON UPDATE NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delete_at
+                  type: timestamp

@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/20210126094000_categories_schema.yaml
+  - include:
+      file: db/changelog/20210202223300_genres_schema.yaml
