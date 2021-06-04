@@ -7,27 +7,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BaseEntityTest {
+class SoftDeleteTimeStampTest {
 
-    private BaseEntity entity1;
-    private BaseEntity entity2;
+    private SoftDeleteTimeStamp entity1;
+    private SoftDeleteTimeStamp entity2;
 
     /**
      * Setup Initial
      */
     @BeforeEach
     void init() {
-        entity1 = new BaseEntity();
-        entity1.setId(TestUtil.ID);
-        entity1.setCreated_at(TestUtil.CREATED_AT);
-        entity1.setUpdate_at(TestUtil.UPDATE_AT);
-        entity1.setDelete_at(TestUtil.DELETE_AT);
+        entity1 = new SoftDeleteTimeStamp();
+        entity1.setCreatedAt(TestUtil.CREATED_AT);
+        entity1.setUpdateAt(TestUtil.UPDATE_AT);
+        entity1.setDeleteAt(TestUtil.DELETE_AT);
 
-        entity2 = new BaseEntity();
-        entity2.setId(TestUtil.ID);
-        entity2.setCreated_at(TestUtil.CREATED_AT);
-        entity2.setUpdate_at(TestUtil.UPDATE_AT);
-        entity2.setDelete_at(TestUtil.DELETE_AT);
+        entity2 = new SoftDeleteTimeStamp();
+        entity2.setCreatedAt(TestUtil.CREATED_AT);
+        entity2.setUpdateAt(TestUtil.UPDATE_AT);
+        entity2.setDeleteAt(TestUtil.DELETE_AT);
     }
 
     /**
@@ -37,7 +35,7 @@ class BaseEntityTest {
     void testEquals() {
         Assertions.assertEquals(entity1, entity2);
 
-        entity2.setId(TestUtil.ID2);
+        entity1.setUpdateAt(null);
         Assertions.assertNotEquals(entity1, entity2);
     }
 
@@ -48,24 +46,17 @@ class BaseEntityTest {
     void testHashCode() {
         Assertions.assertEquals(entity1.hashCode(), entity2.hashCode());
 
-        entity2.setId(TestUtil.ID2);
+        entity1.setUpdateAt(null);
         Assertions.assertNotEquals(entity1.hashCode(), entity2.hashCode());
     }
 
-    /**
-     * Test method getId
-     */
-    @Test
-    void testGetId() {
-        Assertions.assertEquals(TestUtil.ID, entity1.getId());
-    }
 
     /**
      * Test method getCreated_at
      */
     @Test
     void testGetCreated_at() {
-        Assertions.assertEquals(TestUtil.CREATED_AT, entity1.getCreated_at());
+        Assertions.assertEquals(TestUtil.CREATED_AT, entity1.getCreatedAt());
     }
 
     /**
@@ -73,7 +64,7 @@ class BaseEntityTest {
      */
     @Test
     void testGetUpdate_at() {
-        Assertions.assertEquals(TestUtil.UPDATE_AT, entity1.getUpdate_at());
+        Assertions.assertEquals(TestUtil.UPDATE_AT, entity1.getUpdateAt());
     }
 
     /**
@@ -81,6 +72,6 @@ class BaseEntityTest {
      */
     @Test
     void testGetDelete_at() {
-        Assertions.assertEquals(TestUtil.DELETE_AT, entity1.getDelete_at());
+        Assertions.assertEquals(TestUtil.DELETE_AT, entity1.getDeleteAt());
     }
 }
