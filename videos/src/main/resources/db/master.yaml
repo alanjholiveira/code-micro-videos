@@ -3,3 +3,7 @@ databaseChangeLog:
       file: db/changelog/20210126094000_categories_schema.yaml
   - include:
       file: db/changelog/20210202223300_genres_schema.yaml
+  - include:
+      file: db/changelog/20210603165800_cast_members_schema.yaml
+  - include:
+      file: db/changelog/20210604100800_videos_schema.yaml

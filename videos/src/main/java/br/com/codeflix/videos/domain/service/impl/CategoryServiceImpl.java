@@ -49,7 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
 
             return categoryMapper.toDto(result);
         } catch (Exception e) {
-            throw  new ParametrizedMessageException("tes", "sd");
+            throw new ParametrizedMessageException("Error", "Falha ao Salvar os dados");
         }
     }
 
@@ -82,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(@Valid UUID id) {
-        Category category=  categoryRepository.findById(id)
+        Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Regitro não encontrado"));
 
         if (category.getId().equals(id)) {

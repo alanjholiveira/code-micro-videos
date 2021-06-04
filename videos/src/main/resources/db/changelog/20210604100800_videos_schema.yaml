@@ -1,0 +1,55 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210604100800_videos
+      author: Alan Oliveira
+      dbms: mysql
+      changes:
+        - createTable:
+            tableName: tb_videos
+            columns:
+              - column:
+                  name: id_video
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: text
+              - column:
+                  name: year_launched
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: opened
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+              - column:
+                  name: rating
+                  type: varchar(3)
+              - column:
+                  name: duration
+                  type: integer
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValue: "NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: update_at
+                  type: timestamp
+                  defaultValue: "NOW() ON UPDATE NOW()"
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delete_at
+                  type: timestamp
