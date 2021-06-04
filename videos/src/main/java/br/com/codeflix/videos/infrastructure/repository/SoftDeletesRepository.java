@@ -14,14 +14,14 @@ import java.io.Serializable;
  *
  * @param <T>
  *            the class of the entity
- * @param <ID>
+ * @param <I>
  *            the ID class of the entity
  *
  *            NoRepositoryBean interface for the soft delete functionality
  */
 
 @NoRepositoryBean
-public interface SoftDeletesRepository<T, ID extends Serializable> extends PagingAndSortingRepository<T, ID> {
+public interface SoftDeletesRepository<T, I extends Serializable> extends PagingAndSortingRepository<T, I> {
 
     Iterable<T> findAllActive();
 
@@ -29,12 +29,12 @@ public interface SoftDeletesRepository<T, ID extends Serializable> extends Pagin
 
     Page<T> findAllActive(Pageable pageable);
 
-    Iterable<T> findAllActive(Iterable<ID> ids);
+    Iterable<T> findAllActive(Iterable<I> ids);
 
-    T findOneActive(ID id);
+    T findOneActive(I id);
 
     @Modifying
-    void softDelete(ID id);
+    void softDelete(I id);
 
     @Modifying
     void softDelete(T entity);
@@ -46,13 +46,13 @@ public interface SoftDeletesRepository<T, ID extends Serializable> extends Pagin
     void softDeleteAll();
 
     @Modifying
-    void scheduleSoftDelete(ID id, LocalDateTime localDateTime);
+    void scheduleSoftDelete(I id, LocalDateTime localDateTime);
 
     @Modifying
     void scheduleSoftDelete(T entity, LocalDateTime localDateTime);
 
     long countActive();
 
-    boolean existsActive(ID id);
+    boolean existsActive(I id);
 
 }

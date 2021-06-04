@@ -11,7 +11,7 @@ public class UUID5 {
     private UUID5(){}
 
     public static UUID fromUTF8(String name) {
-        return fromBytes(name.getBytes(Charset.forName("UTF-8")));
+        return fromBytes(name.getBytes(Charset.forName("UTF_8")));
     }
 
     private static UUID fromBytes(byte[] name) {

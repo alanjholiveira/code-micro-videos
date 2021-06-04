@@ -3,12 +3,8 @@ package br.com.codeflix.videos.domain.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -17,7 +13,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Category {
+public class Category extends SoftDeleteTimeStamp {
 
     @Id
     @Column(columnDefinition = "BINARY(16)", name = "id_category")
@@ -32,17 +28,6 @@ public class Category {
 
     @Column(name = "is_active")
     private Boolean isActive;
-
-    @Column(name = "created_at", updatable=false)
-    @CreationTimestamp
-    private LocalDateTime created_at;
-
-    @Column(name = "update_at")
-    @UpdateTimestamp
-    private LocalDateTime update_at;
-
-    @Column(name = "delete_at")
-    private LocalDateTime delete_at;
 
 
     @Override

@@ -59,7 +59,7 @@ public class GenreController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@Valid @PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@Valid @PathVariable UUID id) {
         log.debug("Requisição REST para deletar Genero: {}", id);
         service.delete(id);
 

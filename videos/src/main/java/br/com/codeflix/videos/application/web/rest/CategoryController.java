@@ -1,8 +1,8 @@
 package br.com.codeflix.videos.application.web.rest;
 
 import br.com.codeflix.videos.domain.dto.CategoryDTO;
-import br.com.codeflix.videos.domain.entity.Category;
 import br.com.codeflix.videos.domain.service.CategoryService;
+import br.com.codeflix.videos.infrastructure.exception.ParametrizedMessageException;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> save(@Valid @RequestBody CategoryDTO dto) throws Exception {
+    public ResponseEntity<CategoryDTO> save(@Valid @RequestBody CategoryDTO dto) throws ParametrizedMessageException {
         log.debug("Requisição REST para salver categoria: {}", dto);
         CategoryDTO result = categoryService.save(dto);
 
@@ -52,7 +52,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDTO> update(@Valid @PathVariable UUID id,
-                                              @Valid @RequestBody CategoryDTO dto) throws Exception {
+                                              @Valid @RequestBody CategoryDTO dto) throws ParametrizedMessageException {
         log.debug("Requisição REST para atualizar categoria: {}", dto);
         CategoryDTO result = categoryService.update(id, dto);
 
@@ -60,7 +60,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> delete(@Valid @PathVariable UUID id) {
+    public ResponseEntity<Void> delete(@Valid @PathVariable UUID id) {
         log.debug("Requisição REST para deletar categoria: {}", id);
         categoryService.delete(id);
 

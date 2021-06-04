@@ -13,7 +13,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 @Configuration
 public class SwaggerConfig {
 
-    private final static String PACKAGEREST = "br.com.codeflix.videos.application.web";
+    private static final String PACKAGEREST = "br.com.codeflix.videos.application.web";
 
     @Bean
     public Docket api() {

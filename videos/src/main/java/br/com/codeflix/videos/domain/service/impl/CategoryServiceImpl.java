@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -56,15 +54,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDTO update(@Valid UUID id, @Valid CategoryDTO dto) throws Exception {
+    public CategoryDTO update(@Valid UUID id, @Valid CategoryDTO dto) throws ParametrizedMessageException {
         Category category = categoryMapper.toEntity(dto);
 
         Category result = categoryRepository.findById(id)
-                .map(record -> {
-                    record.setName(category.getName());
-                    record.setDescription(category.getDescription());
-                    record.setIsActive(category.getIsActive());
-                    return categoryRepository.save(record);
+                .map(data -> {
+                    data.setName(category.getName());
+                    data.setDescription(category.getDescription());
+                    data.setIsActive(category.getIsActive());
+                    return categoryRepository.save(data);
                 }).orElseThrow(() -> new NotFoundException("Registro não encontrado"));
 
         return categoryMapper.toDto(result);

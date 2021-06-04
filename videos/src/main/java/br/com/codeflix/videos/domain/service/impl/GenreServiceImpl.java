@@ -41,7 +41,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO save(@Valid GenreDTO dto) throws Exception {
+    public GenreDTO save(@Valid GenreDTO dto) throws ParametrizedMessageException {
         try {
             Genre genre = mapper.toEntity(dto);
 
@@ -54,14 +54,14 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public GenreDTO update(@Valid UUID id, @Valid GenreDTO dto) throws Exception {
+    public GenreDTO update(@Valid UUID id, @Valid GenreDTO dto) throws ParametrizedMessageException {
         Genre genre = mapper.toEntity(dto);
 
         Genre result = repository.findById(id)
-                .map(record -> {
-                    record.setName(genre.getName());
-                    record.setIsActive(genre.getIsActive());
-                    return repository.save(record);
+                .map(data -> {
+                    data.setName(genre.getName());
+                    data.setIsActive(genre.getIsActive());
+                    return repository.save(data);
                 }).orElseThrow(() -> new NotFoundException("Registro não encontrado"));
 
         return mapper.toDto(result);

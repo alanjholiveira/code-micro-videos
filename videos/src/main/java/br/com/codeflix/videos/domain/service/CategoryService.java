@@ -15,7 +15,7 @@ public interface CategoryService {
 //    Page<Category> getCategories(Pageable pageable);
     List<CategoryDTO> getCategories() throws NotFoundException;
     CategoryDTO save(@Valid CategoryDTO dto) throws ParametrizedMessageException;
-    CategoryDTO update(@Valid UUID id, @Valid CategoryDTO dto) throws Exception;
+    CategoryDTO update(@Valid UUID id, @Valid CategoryDTO dto) throws ParametrizedMessageException;
     CategoryDTO getById(@Valid UUID id) throws NotFoundException;
     void delete(@Valid UUID id);
 
