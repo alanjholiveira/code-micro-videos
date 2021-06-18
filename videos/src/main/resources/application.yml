@@ -23,3 +23,5 @@ spring:
     hibernate:
       ddl-auto: none
     generate-ddl: false
+
+gcs-resource-test-bucket: codeflix-course

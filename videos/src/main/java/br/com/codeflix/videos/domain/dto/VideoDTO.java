@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -27,5 +28,21 @@ public class VideoDTO extends BaseDTO {
     private String rating;
 
     private Integer duration;
+
+    private String videoFile;
+
+    private String thumbFile;
+
+    private String bannerFile;
+
+    private String trailerFile;
+
+    @NotEmpty
+    @NotNull
+    private Collection<BaseDTO> categories;
+
+    @NotEmpty
+    @NotNull
+    private Collection<BaseDTO> genres;
 
 }

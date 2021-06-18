@@ -8,7 +8,7 @@ databaseChangeLog:
             tableName: tb_cast_members
             columns:
               - column:
-                  name: id_cast_member
+                  name: cast_member_id
                   type: uuid
                   constraints:
                     primaryKey: true

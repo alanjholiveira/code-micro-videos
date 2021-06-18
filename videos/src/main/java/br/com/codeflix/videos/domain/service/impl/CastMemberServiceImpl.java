@@ -24,8 +24,9 @@ public class CastMemberServiceImpl implements CastMemberService {
 
     private final CastMemberRepository repository;
     private final CastMemberMapper mapper;
-    
+
     @Override
+    @Transactional(readOnly = true)
     public List<CastMemberDTO> getAll() throws NotFoundException {
         log.debug("Requisição para listagem de Cast Member");
         try {
@@ -69,6 +70,7 @@ public class CastMemberServiceImpl implements CastMemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public CastMemberDTO getById(UUID id) throws NotFoundException {
         log.debug("Requisição buscar Cast Member");
 

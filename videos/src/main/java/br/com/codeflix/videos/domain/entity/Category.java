@@ -16,7 +16,7 @@ import java.util.UUID;
 public class Category extends SoftDeleteTimeStamp {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)", name = "id_category")
+    @Column(name = "category_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 

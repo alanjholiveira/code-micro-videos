@@ -1,5 +1,6 @@
 package br.com.codeflix.videos.integration;
 
+import br.com.codeflix.videos.domain.dto.BaseDTO;
 import br.com.codeflix.videos.domain.dto.VideoDTO;
 import br.com.codeflix.videos.domain.entity.Video;
 import br.com.codeflix.videos.infrastructure.repository.VideoRepository;
@@ -47,6 +48,9 @@ public class VideoControllerIT {
     @BeforeEach
     public void setup() {
 
+        BaseDTO baseDTO = new BaseDTO();
+        baseDTO.setId(TestUtil.ID);
+
         dto1 = new VideoDTO();
         dto1.setId(TestUtil.ID);
         dto1.setTitle(TestUtil.NAME);
@@ -55,6 +59,8 @@ public class VideoControllerIT {
         dto1.setOpened(TestUtil.IS_ACTIVE_TRUE);
         dto1.setRating("L");
         dto1.setYearLaunched(2022);
+        dto1.setCategories(Arrays.asList(baseDTO));
+        dto1.setGenres(Arrays.asList(baseDTO));
 
         entity1 = new Video();
         entity1.setId(TestUtil.ID);

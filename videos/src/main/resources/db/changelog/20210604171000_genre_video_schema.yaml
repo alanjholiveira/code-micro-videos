@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210604171000_genre_video
+      author: Alan Oliveira
+      dbms: mysql
+      changes:
+        - createTable:
+            tableName: tb_genre_video
+            columns:
+              - column:
+                  name: genre_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: video_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: genre_id
+            indexName: idx_genre
+            tableName: tb_genre_video
+            unique: true
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: video_id
+            indexName: idx_video
+            tableName: tb_genre_video
+            unique: true
+
+        - addForeignKeyConstraint:
+            baseColumnNames: genre_id
+            baseTableName: tb_genre_video
+            constraintName: fk_tb_genre
+            referencedColumnNames: genre_id
+            referencedTableName: tb_genres
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: video_id
+            baseTableName: tb_genre_video
+            constraintName: fk_tb_genre_video
+            referencedColumnNames: video_id
+            referencedTableName: tb_videos
+            validate: true

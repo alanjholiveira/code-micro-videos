@@ -18,7 +18,7 @@ import java.util.UUID;
 public class CastMember extends SoftDeleteTimeStamp {
 
     @Id
-    @Column(columnDefinition = "BINARY(16)", name = "id_cast_member")
+    @Column(name = "cast_member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 

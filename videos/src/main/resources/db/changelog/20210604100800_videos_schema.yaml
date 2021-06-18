@@ -8,7 +8,7 @@ databaseChangeLog:
             tableName: tb_videos
             columns:
               - column:
-                  name: id_video
+                  name: video_id
                   type: uuid
                   constraints:
                     primaryKey: true
@@ -38,6 +38,18 @@ databaseChangeLog:
               - column:
                   name: duration
                   type: integer
+              - column:
+                  name: video_file
+                  type: varchar(300)
+              - column:
+                  name: thumb_file
+                  type: varchar(300)
+              - column:
+                  name: banner_file
+                  type: varchar(300)
+              - column:
+                  name: trailer_file
+                  type: varchar(300)
               - column:
                   name: created_at
                   type: timestamp

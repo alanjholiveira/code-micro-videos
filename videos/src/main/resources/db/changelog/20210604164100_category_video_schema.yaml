@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20210604164100_category_video
+      author: Alan Oliveira
+      dbms: mysql
+      changes:
+        - createTable:
+            tableName: tb_category_video
+            columns:
+              - column:
+                  name: category_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: video_id
+                  type: uuid
+                  constraints:
+                    nullable: false
+
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: category_id
+            indexName: idx_category
+            tableName: tb_category_video
+            unique: true
+        - createIndex:
+            clustered: true
+            columns:
+              - column:
+                  descending: true
+                  name: video_id
+            indexName: idx_video
+            tableName: tb_category_video
+            unique: true
+
+        - addForeignKeyConstraint:
+            baseColumnNames: category_id
+            baseTableName: tb_category_video
+            constraintName: fk_tb_categories
+            referencedColumnNames: category_id
+            referencedTableName: tb_categories
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: video_id
+            baseTableName: tb_category_video
+            constraintName: fk_tb_videos
+            referencedColumnNames: video_id
+            referencedTableName: tb_videos
+            validate: true
