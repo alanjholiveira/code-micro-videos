@@ -1,9 +1,4 @@
-server:
-  port: 8000
-
 spring:
-  application:
-    name: VideosApplication
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     platform: mysql
@@ -24,4 +19,4 @@ spring:
       ddl-auto: none
     generate-ddl: false
 
-gcs-resource-test-bucket: codeflix-course
+#gcs-resource-test-bucket: codeflix-course

@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: code-micro-service
+  cloud:
+    config:
+      enabled: false # Apos configuração mudar para true
+      name: code-micro-service
+      uri: http://github.com/alanoliveira/code-config-service.${ENV_TYPE:dev}.git
+      fail-fast: true
+    vault:
+      enabled: false # Apos configuração mudar para true
+      host: ${VAULT_HOST:vault.code.git.dev}
+      port: 443
+      fail-fast: true
+      scheme: https
+      authentication: TOKEN
+      token: ${VAULT_TOKEN:teste}
+      kv:
+        enabled: true
+        backend: secretv2
+        default-context: code/application
+        application-name: code/micro-service
+    gcp:
+      storage:
+        enabled: true
+        project-id: code-flix-316723
+      credentials:
+        location: file:/var/home/alan/Developer/demo/gcloud/codeflix-couse-account-service.json
