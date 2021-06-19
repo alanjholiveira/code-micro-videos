@@ -26,6 +26,7 @@ public class VideoServiceImpl implements VideoService {
     private final VideoMapper mapper;
 
     @Override
+    @Transactional(readOnly = true)
     public List<VideoDTO> getAll() throws NotFoundException {
         log.debug("Requisição para listagem de Video");
         try {
@@ -74,6 +75,7 @@ public class VideoServiceImpl implements VideoService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public VideoDTO getById(UUID id) throws NotFoundException {
         log.debug("Requisição buscar video");
 
