@@ -1,4 +1,4 @@
-package br.com.codeflix.videos.domain.service;
+package br.com.codeflix.videos.domain.service.old;
 
 import br.com.codeflix.videos.infrastructure.exception.NotFoundException;
 import br.com.codeflix.videos.infrastructure.exception.ParametrizedMessageException;

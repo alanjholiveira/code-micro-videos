@@ -1,24 +1,40 @@
 version: '3.5'
 
-services: 
+services:
 
-    db:
-        image: mysql:5.7
-        container_name: micro-videos-db
-        # restart: always
-        tty: true
-        ports: 
-            - 3306:3306
-        volumes: 
-            - MICRO_VIDEO_MYSQL_DATA:/var/lib/mysql
-        environment: 
-            - MYSQL_DATABASE=code_micro_videos
-            - MYSQL_ROOT_PASSWORD=root
-        networks: 
-            - MICRO_VIDEO
+  db_catalogo:
+    image: mysql:5.7
+    container_name: micro-videos-db
+    # restart: always
+    tty: true
+    ports:
+      - 3306:3306
+    volumes:
+      - MICRO_VIDEO_MYSQL_DATA:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=code_micro_videos
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - MICRO_VIDEO
+#
+#  app_catalogo:
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#    volumes:
+#      - "./:/app"
+#    working_dir: /app
+#    command: sh run.sh
+#    ports:
+#      - "8080:8080"
+#      - "8005:8005"
+#    networks:
+#      - MICRO_VIDEO
+#    depends_on:
+#      -  db_catalogo
 
-volumes: 
-    MICRO_VIDEO_MYSQL_DATA:
-networks: 
-    MICRO_VIDEO:
-        driver: "bridge"
+volumes:
+  MICRO_VIDEO_MYSQL_DATA:
+networks:
+  MICRO_VIDEO:
+    driver: "bridge"

@@ -1,16 +1,16 @@
-spring:
-  application:
-    name: VideosApplication
-  datasource:
-    type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:h2:mem:testVideoDB
-    username: sa
-    password: root
-    platform: h2
-  jpa:
-    open-in-view: false
-    hibernate:
-      ddl-auto: none
-  liquibase:
-    enabled: true
-    change-log: classpath:db/master.yaml
+#spring:
+#  application:
+#    name: VideosApplication
+#  datasource:
+#    type: com.zaxxer.hikari.HikariDataSource
+#    url: jdbc:h2:mem:testVideoDB
+#    username: sa
+#    password: root
+##    platform: h2
+#  jpa:
+#    open-in-view: false
+#    hibernate:
+#      ddl-auto: none
+#  liquibase:
+#    enabled: false
+#    change-log: classpath:db/master.yaml

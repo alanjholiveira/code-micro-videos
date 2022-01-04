@@ -1,24 +1,22 @@
 package br.com.codeflix.videos.domain.entity;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tb_categories")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Category extends SoftDeleteTimeStamp {
+public class Category extends BaseEntity {
 
-    @Id
-    @Column(name = "category_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
 
     @Column(name = "name")
     private String name;
@@ -34,16 +32,16 @@ public class Category extends SoftDeleteTimeStamp {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Category category = (Category) o;
-        return id.equals(category.id) && name.equals(category.name) && description.equals(category.description) &&
-                Objects.equals(isActive, category.isActive);
+        return getId().equals(category.getId())
+                && name.equals(category.name)
+                && Objects.equals(description, category.description)
+                && isActive.equals(category.isActive);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, isActive);
+        return Objects.hash(super.hashCode(), getId(), name, description, isActive);
     }
-
-
-
 }

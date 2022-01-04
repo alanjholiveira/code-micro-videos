@@ -1,14 +1,16 @@
 spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    platform: mysql
-    url: jdbc:mysql://localhost:3306/code_micro_videos?useTimezone=true&serverTimezone=UTC
+#    platform: mysql
+#    url: jdbc:mysql://localhost:3306/code_micro_videos?useTimezone=true&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/code_micro_videos?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: root
 
   liquibase:
     change-log: classpath:db/master.yaml
     contexts: dev, local
+    enabled: false
 
   jpa:
     show-sql: true
@@ -16,7 +18,7 @@ spring:
       hibernate:
         format_sql: true
     hibernate:
-      ddl-auto: none
-    generate-ddl: false
+      ddl-auto: update
+#    generate-ddl: false
 
 #gcs-resource-test-bucket: codeflix-course

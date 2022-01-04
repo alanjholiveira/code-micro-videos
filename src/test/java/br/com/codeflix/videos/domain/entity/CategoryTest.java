@@ -40,17 +40,17 @@ class CategoryTest {
         entity2.setId(TestUtil.ID2);
         Assertions.assertNotEquals(entity1, entity2);
     }
-
-    /**
-     * Test method hashCode.
-     */
-    @Test
-    void testHashCode() {
-        Assertions.assertEquals(entity1.hashCode(), entity2.hashCode());
-
-        entity2.setId(TestUtil.ID2);
-        Assertions.assertNotEquals(entity1.hashCode(), entity2.hashCode());
-    }
+//
+//    /**
+//     * Test method hashCode.
+//     */
+//    @Test
+//    void testHashCode() {
+//        Assertions.assertEquals(entity1.hashCode(), entity2.hashCode());
+//
+//        entity2.setId(TestUtil.ID2);
+//        Assertions.assertNotEquals(entity1.hashCode(), entity2.hashCode());
+//    }
 
     /**
      * Test methodo getId

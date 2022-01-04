@@ -1,6 +1,9 @@
 package br.com.codeflix.videos.application.web.rest;
 
-import br.com.codeflix.videos.domain.dto.GenreDTO;
+import br.com.codeflix.videos.application.mapper.GenreMapper;
+import br.com.codeflix.videos.application.web.rest.request.GenreRequest;
+import br.com.codeflix.videos.application.web.rest.response.GenreResponse;
+import br.com.codeflix.videos.domain.entity.Genre;
 import br.com.codeflix.videos.domain.service.GenreService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -25,37 +29,40 @@ public class GenreController {
     private final GenreService service;
 
     @GetMapping
-    public ResponseEntity<List<GenreDTO>> getCategories() {
+    public ResponseEntity<List<GenreResponse>> getCategories() {
         log.debug("Requisição REST para listar Generos");
-        List<GenreDTO> result = service.getAll();
+        List<GenreResponse> responses = service.getAll()
+                .parallelStream()
+                .map(GenreMapper::toResponse)
+                .collect(Collectors.toList());
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GenreDTO> getById(@PathVariable UUID id) {
+    public ResponseEntity<GenreResponse> getById(@PathVariable UUID id) {
         log.debug("Requisição REST para buscar Generos: {}", id);
 
-        GenreDTO result = service.getById(id);
+        Genre result = service.getById(id);
 
-        return  ResponseEntity.ok(result);
+        return  ResponseEntity.ok(GenreMapper.toResponse(result));
     }
 
     @PostMapping
-    public ResponseEntity<GenreDTO> save(@Valid @RequestBody GenreDTO dto) throws Exception {
-        log.debug("Requisição REST para salver Genero: {}", dto);
-        GenreDTO result = service.save(dto);
+    public ResponseEntity<GenreResponse> save(@Valid @RequestBody GenreRequest request) throws Exception {
+        log.debug("Requisição REST para salver Genero: {}", request);
+        Genre result = service.save(GenreMapper.toEntity(request));
 
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(GenreMapper.toResponse(result), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GenreDTO> update(@Valid @PathVariable UUID id,
-                                              @Valid @RequestBody GenreDTO dto) throws Exception {
-        log.debug("Requisição REST para atualizar Genero: {}", dto);
-        GenreDTO result = service.update(id, dto);
+    public ResponseEntity<GenreResponse> update(@Valid @PathVariable UUID id,
+                                              @Valid @RequestBody GenreRequest request) throws Exception {
+        log.debug("Requisição REST para atualizar Genero: {}", request);
+        Genre result = service.update(id, GenreMapper.toEntity(request));
 
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(GenreMapper.toResponse(result));
     }
 
     @DeleteMapping("{id}")

@@ -1,6 +1,5 @@
 package br.com.codeflix.videos.domain.service;
 
-import br.com.codeflix.videos.domain.dto.GenreDTO;
 import br.com.codeflix.videos.domain.entity.Genre;
 import br.com.codeflix.videos.infrastructure.exception.NotFoundException;
 import br.com.codeflix.videos.infrastructure.repository.GenreRepository;
@@ -36,16 +35,10 @@ public class GenreServiceTest {
     private GenreService service;
 
     private List<Genre> genres;
-    private GenreDTO dto1;
     private Genre entity1;
 
     @BeforeEach
     void setUp() {
-        dto1 = new GenreDTO();
-        dto1.setId(TestUtil.ID);
-        dto1.setName(TestUtil.NAME);
-        dto1.setIsActive(TestUtil.IS_ACTIVE_TRUE);
-
         entity1 = new Genre();
         entity1.setId(TestUtil.ID);
         entity1.setName(TestUtil.NAME);
@@ -60,7 +53,7 @@ public class GenreServiceTest {
     void testGetAll() {
         when(repository.findAll()).thenReturn(genres);
 
-        List<GenreDTO> list = service.getAll();
+        List<Genre> list = service.getAll();
 
         Assertions.assertEquals(list.size(), 2);
     }
@@ -70,18 +63,18 @@ public class GenreServiceTest {
     void testGetById() {
         when(repository.findById(entity1.getId())).thenReturn(Optional.of(entity1));
 
-        GenreDTO result = service.getById(entity1.getId());
+        Genre result = service.getById(entity1.getId());
 
         Assertions.assertNotNull(result);
-        Assertions.assertNotSame(result, dto1);
-        Assertions.assertEquals(result, dto1);
+        Assertions.assertNotSame(result, entity1);
+        Assertions.assertEquals(result, entity1);
     }
 
     @Test
     @DisplayName("Test findById Not Found")
     void testGetByIdNotFound() throws NotFoundException {
         Mockito.doReturn(Optional.empty()).when(repository).findById(TestUtil.ID);
-        AtomicReference<GenreDTO> result = new AtomicReference<>();
+        AtomicReference<Genre> result = new AtomicReference<>();
 
         Exception exception = Assertions.assertThrows(NotFoundException.class, () ->
             result.set(service.getById(entity1.getId()))
@@ -97,11 +90,11 @@ public class GenreServiceTest {
     void testSave() throws Exception {
         when(repository.save(entity1)).thenReturn(entity1);
 
-        GenreDTO result = service.save(dto1);
+        Genre result = service.save(entity1);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result, dto1);
-        Assertions.assertNotSame(result, dto1);
+        Assertions.assertEquals(result, entity1);
+        Assertions.assertNotSame(result, entity1);
         Assertions.assertEquals(36, result.getId().toString().length());
     }
 
@@ -111,11 +104,11 @@ public class GenreServiceTest {
         when(repository.save(entity1)).thenReturn(entity1);
         when(repository.findById(entity1.getId())).thenReturn(Optional.of(entity1));
 
-        GenreDTO result = service.update(entity1.getId(), dto1);
+        Genre result = service.update(entity1.getId(), entity1);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result, dto1);
-        Assertions.assertNotSame(result, dto1);
+        Assertions.assertEquals(result, entity1);
+        Assertions.assertNotSame(result, entity1);
     }
 
     @Test
@@ -124,10 +117,10 @@ public class GenreServiceTest {
         when(repository.save(entity1)).thenReturn(entity1);
         when(repository.findById(entity1.getId())).thenReturn(Optional.of(entity1));
 
-        AtomicReference<GenreDTO> result = new AtomicReference<>();
+        AtomicReference<Genre> result = new AtomicReference<>();
 
         Exception exception = Assertions.assertThrows(NotFoundException.class, () ->
-                result.set(service.update(TestUtil.ID2, dto1))
+                result.set(service.update(TestUtil.ID2, entity1))
         );
 
         Assertions.assertEquals("Registro não encontrado", exception.getMessage());

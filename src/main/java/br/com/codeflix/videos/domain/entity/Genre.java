@@ -1,24 +1,19 @@
 package br.com.codeflix.videos.domain.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tb_genres")
-@Getter
-@Setter
-@NoArgsConstructor
-public class Genre extends SoftDeleteTimeStamp {
-
-    @Id
-    @Column(name = "genre_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+@Data
+public class Genre extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -26,16 +21,6 @@ public class Genre extends SoftDeleteTimeStamp {
     @Column(name = "is_active")
     private Boolean isActive;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Genre genre = (Genre) o;
-        return id.equals(genre.id) && name.equals(genre.name) && Objects.equals(isActive, genre.isActive);
-    }
+//    private List<Category> categories;
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, isActive);
-    }
 }

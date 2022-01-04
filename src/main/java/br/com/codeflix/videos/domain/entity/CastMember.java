@@ -1,31 +1,22 @@
 package br.com.codeflix.videos.domain.entity;
 
 import br.com.codeflix.videos.infrastructure.enums.TypeDirectorActorEnum;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.UUID;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "tb_cast_members")
-@Getter
-@Setter
-@NoArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-public class CastMember extends SoftDeleteTimeStamp {
-
-    @Id
-    @Column(name = "cast_member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+@Data
+public class CastMember extends BaseEntity {
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "type")
     private TypeDirectorActorEnum type;
+//    private CastMemberType type;
 
 }

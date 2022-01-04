@@ -1,6 +1,9 @@
 package br.com.codeflix.videos.application.web.rest;
 
-import br.com.codeflix.videos.domain.dto.VideoDTO;
+import br.com.codeflix.videos.application.mapper.VideoMapper;
+import br.com.codeflix.videos.application.web.rest.request.VideoRequest;
+import br.com.codeflix.videos.application.web.rest.response.VideoResponse;
+import br.com.codeflix.videos.domain.entity.Video;
 import br.com.codeflix.videos.domain.service.VideoService;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -25,32 +29,35 @@ public class VideoController {
     private final VideoService service;
 
     @GetMapping
-    public ResponseEntity<List<VideoDTO>> getAll() {
+    public ResponseEntity<List<VideoResponse>> findAll() {
         log.debug("Requisição REST para listar video");
-        List<VideoDTO> result = service.getAll();
+        List<VideoResponse> result = service.findAll()
+                .parallelStream()
+                .map(VideoMapper::toResponse)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<VideoDTO> getById(@PathVariable UUID id) {
+    public ResponseEntity<VideoResponse> getById(@PathVariable UUID id) {
         log.debug("Requisição REST buscar video: {}", id);
-        VideoDTO result = service.getById(id);
-        return ResponseEntity.ok(result);
+        Video result = service.getById(id);
+        return ResponseEntity.ok(VideoMapper.toResponse(result));
     }
 
     @PostMapping
-    public ResponseEntity<VideoDTO> save(@Valid @RequestBody VideoDTO dto) {
-        log.debug("Requisição REST para salvar video: {}", dto);
-        VideoDTO result = service.save(dto);
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    public ResponseEntity<VideoResponse> save(@Valid @RequestBody VideoRequest request) {
+        log.debug("Requisição REST para salvar video: {}", request);
+        Video result = service.save(VideoMapper.toEntity(request));
+        return new ResponseEntity<>(VideoMapper.toResponse(result), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VideoDTO> update(@Valid @PathVariable UUID id,
-                                           @Valid @RequestBody VideoDTO dto) {
-        log.debug("Requisição REST para atualizar video: {}", dto);
-        VideoDTO result = service.update(id, dto);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<VideoResponse> update(@Valid @PathVariable UUID id,
+                                           @Valid @RequestBody VideoRequest request) {
+        log.debug("Requisição REST para atualizar video: {}", request);
+        Video result = service.update(id, VideoMapper.toEntity(request));
+        return ResponseEntity.ok(VideoMapper.toResponse(result));
     }
 
     @DeleteMapping("/{id}")
